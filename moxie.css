@@ -1,5 +1,5 @@
-/* Moxie Design: teal-to-blue and gold from the logo, charcoal type on a soft white. */
-:root{--ink:#2D3135;--muted:#5C646C;--line:#E2E5E8;--bg:#F7F8F8;--card:#FFFFFF;--teal:#16969A;--blue:#1C5E9E;--gold:#D8901F}
+/* Moxie Design: deep teal and coral from the logo, charcoal type on a soft white. */
+:root{--ink:#2D3135;--muted:#5C646C;--line:#E2E5E8;--bg:#F7F8F8;--card:#FFFFFF;--teal:#1F7A78;--blue:#174B4F;--gold:#EE7A62}
 *{box-sizing:border-box}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:'Manrope',system-ui,sans-serif;line-height:1.55;-webkit-text-size-adjust:100%}
 a{color:var(--blue)}a:hover{color:var(--teal)}
@@ -9,7 +9,7 @@ header img{height:44px;width:auto;display:block}
 header nav{display:flex;gap:24px;font-weight:600}
 header nav a{color:var(--ink);text-decoration:none}
 .hero{padding-block:72px 64px;text-align:center;display:flex;flex-direction:column;align-items:center;gap:28px;border-bottom:1px solid var(--line)}
-.hero img{width:min(560px,100%);height:auto}
+.hero img{width:min(380px,100%);height:auto}
 .hero p{margin:0;font-size:20px;color:var(--muted);max-width:620px}
 h2{font-size:30px;margin:0 0 24px;letter-spacing:-.3px}
 section.pad{padding-block:64px}
