@@ -1,9 +1,9 @@
-# FinalSheet website
+# Moxie Design website
 
-The public site for FinalSheet, served by GitHub Pages: `index.html` (home), `privacy.html`, `support.html`, `style.css`, `icon.png`.
+Served by GitHub Pages at moxieappdesign.com (see CNAME).
 
-Before publishing, replace:
-- `SUPPORT_EMAIL` (privacy.html and support.html, 4 places) with your support email
-- `https://testflight.apple.com/join/YOURCODE` in index.html with your TestFlight public link
+- `index.html` - Moxie Design home
+- `finalsheet/` - FinalSheet app page, privacy policy and support
+- New apps get their own folder the same way.
 
-Publish: GitHub Desktop > Publish repository (uncheck "Keep this code private"), then on github.com: Settings > Pages > Deploy from a branch > main / (root).
+Placeholders to fill: `CONTACT_EMAIL` (index.html), `SUPPORT_EMAIL` (finalsheet/privacy.html, finalsheet/support.html), the TestFlight link in finalsheet/index.html.
