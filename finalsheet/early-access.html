@@ -158,6 +158,14 @@ const SUPABASE_KEY = 'sb_publishable_XUVw1UF5iMdTaOHAT54FyA_q5Cu1IcX';
 // Paste the TestFlight public link here once Apple approves the external group; iPhone applicants then get it right away.
 const TESTFLIGHT = 'https://testflight.apple.com/join/YOURCODE';
 
+// Where this visitor came from: the ?ref= label on the link (finalsheet.app/apply?ref=fb-oct), else the site that sent them.
+const SOURCE = (() => {
+  const q = new URLSearchParams(location.search);
+  const ref = (q.get('ref') || q.get('utm_campaign') || q.get('utm_source') || '').toLowerCase().replace(/[^a-z0-9_-]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 60);
+  if (ref) return ref;
+  try { const h = new URL(document.referrer).hostname; if (h && h !== location.hostname && !/(^|\.)finalsheet\.app$/.test(h)) return ('from ' + h).slice(0, 80); } catch (x) {}
+  return '';
+})();
 const form = document.getElementById('ea-form'), err = document.getElementById('ea-err'), btn = document.getElementById('ea-submit');
 const fail = (m) => { err.textContent = m; err.style.display = 'block'; err.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
 form.addEventListener('submit', async (e) => {
@@ -172,11 +180,14 @@ form.addEventListener('submit', async (e) => {
   if (!row.phone) return fail('Please choose iPhone or Android.');
   btn.disabled = true; btn.textContent = 'Sending…';
   try {
-    const r = await fetch(SUPABASE_URL + '/rest/v1/early_access', {
+    const send = (body) => fetch(SUPABASE_URL + '/rest/v1/early_access', {
       method: 'POST',
       headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
-      body: JSON.stringify(row),
+      body: JSON.stringify(body),
     });
+    let r = await send(SOURCE ? { ...row, source: SOURCE } : row);
+    // Database without the source column yet (010_early_access_source.sql): save the application without it.
+    if (!r.ok && SOURCE) r = await send(row);
     if (!r.ok) throw new Error(String(r.status));
   } catch (x) {
     btn.disabled = false; btn.textContent = 'Apply for early access';
