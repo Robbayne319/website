@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>FinalSheet Early Access: Founding Clubs</title>
+<meta name="description" content="Apply for FinalSheet early access. Founding Clubs get full Pro free through the spring season, hands-on setup and a direct line to the product team.">
+<meta property="og:title" content="FinalSheet Early Access: Founding Clubs">
+<meta property="og:description" content="Game-day software for club soccer coaches. Apply for a Founding Club spot.">
+<meta property="og:image" content="https://moxieappdesign.com/finalsheet/icon.png">
+<meta name="theme-color" content="#0B1324">
+<link rel="icon" type="image/png" href="icon.png">
+<link rel="apple-touch-icon" href="media/icon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@800&amp;family=Barlow+Condensed:wght@600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css?v=2">
+<style>
+.ea{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:start;padding-block:64px 88px}
+.ea .copy{display:flex;flex-direction:column;gap:22px;position:sticky;top:96px}
+.ea h1{font-size:clamp(52px,7vw,96px)}
+.badge{align-self:flex-start;display:inline-flex;align-items:center;gap:8px;padding:6px 12px;border:1px solid var(--line2);border-radius:999px;font-family:var(--num);font-weight:700;letter-spacing:1.5px;text-transform:uppercase;font-size:14px;color:var(--gold)}
+.badge::before{content:"";width:8px;height:8px;border-radius:50%;background:var(--on);box-shadow:0 0 0 4px rgba(76,195,138,.18)}
+.form{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:30px;display:flex;flex-direction:column;gap:18px;box-shadow:0 30px 60px rgba(0,0,0,.35)}
+.form h2{font-size:38px}
+.form .sub{color:var(--muted);font-size:15px;margin-top:-8px}
+.f{display:flex;flex-direction:column;gap:7px}
+.f label,.f legend{font-family:var(--num);font-weight:700;font-size:14px;letter-spacing:1.4px;text-transform:uppercase;color:var(--muted);padding:0}
+.f label i,.f legend i{font-style:normal;text-transform:none;letter-spacing:0;font-family:var(--body);font-weight:400;opacity:.8}
+.f input,.f select,.f textarea{width:100%;font:inherit;font-size:16px;color:var(--ink);background:var(--bg2);border:1px solid var(--line2);border-radius:12px;padding:12px 14px;min-height:48px}
+.f textarea{min-height:84px;resize:vertical}
+.f select{appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 8' fill='none' stroke='%239AA8C2' stroke-width='1.8'%3E%3Cpath d='M1 1.5l5 5 5-5'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;background-size:12px;padding-right:38px}
+.f input:focus,.f select:focus,.f textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:transparent}
+.two-col{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+fieldset.f{border:0;margin:0;padding:0}
+.seg{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.seg label{position:relative;display:flex;align-items:center;justify-content:center;gap:8px;min-height:48px;border:1px solid var(--line2);border-radius:12px;background:var(--bg2);cursor:pointer;font-family:var(--body);font-size:16px;font-weight:600;letter-spacing:0;text-transform:none;color:var(--ink)}
+.seg input{position:absolute;opacity:0;pointer-events:none}
+.seg label:has(input:checked){border-color:var(--accent);box-shadow:0 0 0 1px var(--accent) inset;background:rgba(242,153,74,.1)}
+.seg label:has(input:focus-visible){outline:2px solid var(--accent);outline-offset:2px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.submit{justify-content:center;font-size:18px;font-weight:700;min-height:54px;cursor:pointer;width:100%}
+.submit[disabled]{opacity:.6;cursor:wait}
+.fine{font-size:13px;color:var(--muted);text-align:center}
+.err{display:none;background:rgba(255,90,95,.12);border:1px solid rgba(255,90,95,.4);color:#FFB3B5;border-radius:12px;padding:12px 14px;font-size:15px}
+.done{display:none;flex-direction:column;align-items:flex-start;gap:16px}
+.done .tick{width:56px;height:56px;border-radius:50%;background:var(--green);display:flex;align-items:center;justify-content:center}
+.next{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.next>div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:26px;display:flex;flex-direction:column;gap:10px}
+.next .big{font-family:var(--num);font-weight:800;font-size:56px;line-height:.85;color:var(--gold)}
+.faq{display:grid;grid-template-columns:1fr 1fr;gap:28px 48px}
+.faq h3{font-size:22px;margin-bottom:6px}
+@media (max-width:900px){
+  .ea{grid-template-columns:1fr;gap:36px;padding-block:40px 64px}
+  .ea .copy{position:static}
+  .next,.faq{grid-template-columns:1fr}
+  .pad{padding-block:64px}
+}
+@media (max-width:480px){
+  .wrap{padding-inline:16px}
+  .form{padding:22px 18px}
+  .two-col{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<header><div class="wrap"><nav aria-label="Main">
+<a class="brand" href="./"><img src="media/icon-180.png" alt="" width="34" height="34">FinalSheet</a>
+<div class="nav-links">
+<a href="./#sideline">Features</a>
+<a href="./#graphics">Graphics</a>
+<a href="./#plans">Free &amp; Pro</a>
+<a href="support.html">Support</a>
+<a class="btn" href="#apply">Apply</a>
+</div>
+</nav></div></header>
+
+<main>
+<section class="wrap ea">
+<div class="copy">
+<span class="badge">Early access · Now open</span>
+<h1>Founding<br><span class="hl">Clubs</span></h1>
+<p class="lead">FinalSheet is game-day software for club soccer coaches. Run the game from the sideline, let parents follow live, and finish with the final sheet before you leave the field.</p>
+<p class="body">We're opening a limited number of Founding Club spots ahead of the spring season. Founding Clubs get:</p>
+<ul class="checks">
+<li><span><b>Full Pro, free through the spring season.</b> Saved games, season stats, game and season reports, team sharing and custom graphics.</span></li>
+<li><span><b>Hands-on setup.</b> We'll help you load your roster, colors and schedule.</span></li>
+<li><span><b>A direct line to the product team.</b> Your feedback shapes what we build next.</span></li>
+<li><span><b>Founding Club status</b> when FinalSheet launches on the App Store and Google Play.</span></li>
+</ul>
+</div>
+
+<div id="apply" class="form" aria-live="polite">
+<form id="ea-form" class="stack gap-m" novalidate>
+<div class="stack gap-s"><h2>Apply for early access</h2><p class="sub">Takes about a minute. We review every application.</p></div>
+<div class="two-col">
+<div class="f"><label for="name">Your name</label><input id="name" name="name" autocomplete="name" required maxlength="120"></div>
+<div class="f"><label for="email">Email</label><input id="email" name="email" type="email" autocomplete="email" inputmode="email" required maxlength="200"></div>
+</div>
+<div class="two-col">
+<div class="f"><label for="club">Club or school</label><input id="club" name="club" autocomplete="organization" required maxlength="160"></div>
+<div class="f"><label for="team">Team <i>(age group, level)</i></label><input id="team" name="team" placeholder="e.g. U14 Girls Premier" maxlength="120"></div>
+</div>
+<div class="two-col">
+<div class="f"><label for="role">Your role</label>
+<select id="role" name="role" required><option value="" disabled selected>Choose one</option><option>Coach</option><option>Team manager</option><option>Director of coaching</option><option>Other</option></select></div>
+<div class="f"><label for="teams">Teams you'd use it for</label>
+<select id="teams" name="teams"><option value="1">1 team</option><option value="2-3">2–3 teams</option><option value="4+">4 or more</option><option value="Whole club">Our whole club</option></select></div>
+</div>
+<fieldset class="f"><legend>Your phone</legend>
+<div class="seg"><label><input type="radio" name="phone" value="iPhone" required>iPhone</label><label><input type="radio" name="phone" value="Android">Android</label></div>
+</fieldset>
+<div class="f"><label for="note">Anything we should know? <i>(optional)</i></label><textarea id="note" name="note" maxlength="1000" placeholder="Season dates, how you track games today, what you'd love to see…"></textarea></div>
+<div class="hp" aria-hidden="true"><label for="website">Website</label><input id="website" name="website" tabindex="-1" autocomplete="off"></div>
+<div class="err" id="ea-err" role="alert"></div>
+<button class="btn submit" type="submit" id="ea-submit">Apply for a Founding Club spot</button>
+<p class="fine">We'll only use your email to contact you about FinalSheet. See our <a href="privacy.html">privacy policy</a>.</p>
+</form>
+
+<div class="done" id="ea-done">
+<div class="tick"><svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="#F2C432" stroke-width="2.6" aria-hidden="true"><path d="M5.5 10.5l3 3 6-7"/></svg></div>
+<h2 id="ea-done-title">Application received</h2>
+<p class="body" id="ea-done-body"></p>
+<a class="btn" id="ea-tf" href="#" style="display:none"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg><span class="two"><small>Install on iPhone with</small><b>TestFlight</b></span></a>
+</div>
+</div>
+</section>
+
+<section class="band"><div class="wrap pad stack gap-l">
+<div class="stack gap-m"><div class="kicker">What happens next</div><h2>From application to kickoff</h2></div>
+<div class="next">
+<div><span class="big">1</span><h3>We review</h3><p class="body">We read every application and confirm your spot by email, usually within two business days.</p></div>
+<div><span class="big">2</span><h3>You install</h3><p class="body">iPhone coaches install through Apple's TestFlight. Android coaches are invited as soon as FinalSheet is live on Google Play.</p></div>
+<div><span class="big">3</span><h3>We set you up</h3><p class="body">Roster, team colors and schedule, ready for your next game. Then tell us what works and what doesn't.</p></div>
+</div>
+</div></section>
+
+<section class="wrap pad stack gap-l">
+<div class="stack gap-m"><div class="kicker">Questions</div><h2>Good to know</h2></div>
+<div class="faq">
+<div><h3>Is it really free?</h3><p class="body">Yes. Founding Clubs get every Pro feature at no cost through the spring season. No card needed.</p></div>
+<div><h3>Do my assistants and parents need to apply?</h3><p class="body">No. Once you're set up, you share your team with an invite code. Assistants and parents join free.</p></div>
+<div><h3>What's TestFlight?</h3><p class="body">Apple's official app for early-access software. You install TestFlight from the App Store, then FinalSheet installs through it like any other app.</p></div>
+<div><h3>Who's behind FinalSheet?</h3><p class="body">FinalSheet is built by Moxie App Design, a software studio in Pennsylvania. Questions? Visit <a href="support.html">Support</a>.</p></div>
+</div>
+</section>
+</main>
+
+<footer><div class="wrap">
+<a class="brand" href="./" style="font-size:20px"><img src="media/icon-180.png" alt="" width="26" height="26" style="width:26px;height:26px;border-radius:6px">FinalSheet</a>
+<div class="links"><a href="privacy.html">Privacy</a><a href="support.html">Support</a><span>Made by <a href="../">Moxie Design</a></span><span>&copy; 2026 Moxie Design</span></div>
+</div></footer>
+
+<script>
+// Applications go to the FinalSheet database (table early_access, supabase/migrations/008_early_access.sql).
+// The key is the app's public key: the database only lets it add an application, never read one.
+const SUPABASE_URL = 'https://mecagvrgswbnrvfuqset.supabase.co';
+const SUPABASE_KEY = 'sb_publishable_XUVw1UF5iMdTaOHAT54FyA_q5Cu1IcX';
+// Paste the TestFlight public link here once Apple approves the external group; iPhone applicants then get it right away.
+const TESTFLIGHT = 'https://testflight.apple.com/join/YOURCODE';
+
+const form = document.getElementById('ea-form'), err = document.getElementById('ea-err'), btn = document.getElementById('ea-submit');
+const fail = (m) => { err.textContent = m; err.style.display = 'block'; err.scrollIntoView({ behavior: 'smooth', block: 'center' }); };
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  err.style.display = 'none';
+  const f = new FormData(form), v = (k) => String(f.get(k) || '').trim();
+  if (v('website')) return; // filled in by bots only
+  const row = { name: v('name'), email: v('email'), club: v('club'), team: v('team'), role: v('role'), phone: v('phone'), teams: v('teams') || '1', note: v('note') };
+  if (!row.name || !row.club) return fail('Please add your name and your club or school.');
+  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(row.email)) return fail('Please check your email address.');
+  if (!row.role) return fail('Please choose your role.');
+  if (!row.phone) return fail('Please choose iPhone or Android.');
+  btn.disabled = true; btn.textContent = 'Sending…';
+  try {
+    const r = await fetch(SUPABASE_URL + '/rest/v1/early_access', {
+      method: 'POST',
+      headers: { apikey: SUPABASE_KEY, 'Content-Type': 'application/json', Prefer: 'return=minimal' },
+      body: JSON.stringify(row),
+    });
+    if (!r.ok) throw new Error(String(r.status));
+  } catch (x) {
+    btn.disabled = false; btn.textContent = 'Apply for a Founding Club spot';
+    return fail("Something went wrong sending your application. Please try again, or email us from the Support page.");
+  }
+  const tf = row.phone === 'iPhone' && !/YOURCODE/.test(TESTFLIGHT);
+  document.getElementById('ea-done-title').textContent = 'Welcome, ' + row.name.split(/\s+/)[0] + '.';
+  document.getElementById('ea-done-body').textContent = tf
+    ? "You're in. Install FinalSheet on your iPhone with the button below. We'll follow up by email to help you set up your team."
+    : row.phone === 'iPhone'
+      ? "Your application is in. We'll email your invite and setup details to " + row.email + ', usually within two business days.'
+      : "Your application is in. We'll email " + row.email + ' as soon as FinalSheet is live on Google Play, with your Founding Club setup.';
+  if (tf) { const a = document.getElementById('ea-tf'); a.href = TESTFLIGHT; a.style.display = 'inline-flex'; }
+  form.style.display = 'none';
+  document.getElementById('ea-done').style.display = 'flex';
+  document.getElementById('apply').scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+</script>
+</body>
+</html>
