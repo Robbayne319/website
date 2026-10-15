@@ -1,10 +1,10 @@
-/* FinalSheet website. Matches the app: dark navy screens, orange actions, the icon's green sheet and gold ball.
+/* FinalSheet website. Matches the app: night navy screens with one hit of orange (see the FinalSheet style guide).
    Big Shoulders Display for headlines (the app's DISPLAY face), Barlow Condensed for numbers and labels (NUM). */
 :root{
   --bg:#0B1324; --bg2:#0F1A30; --surface:#16213A; --surface2:#121B30; --line:#22304D; --line2:#2E3C5C;
   --ink:#E8EDF6; --muted:#9AA8C2;
   --accent:#F2994A; --accent-ink:#0B1324; --on:#4CC38A; --live:#FF5A5F;
-  --green:#1F6B4B; --green2:#174F38; --gold:#F2C432; --cream:#F5F2EB;
+  --cream:#F5F2EB;
   --display:'Big Shoulders Display','Barlow Condensed','Arial Narrow',sans-serif;
   --num:'Barlow Condensed','Arial Narrow',sans-serif;
   --body:-apple-system,BlinkMacSystemFont,'SF Pro Text','Inter',system-ui,sans-serif;
@@ -66,7 +66,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 /* strip */
 .strip{border-block:1px solid var(--line);background:var(--surface2)}
 .strip .wrap{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 22px;padding-block:18px;font-family:var(--num);font-weight:700;font-size:20px;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted)}
-.strip i{color:var(--gold);font-style:normal}
+.strip i{color:var(--accent);font-style:normal}
 
 /* feature rows: screenshot beside text */
 .feature{display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center}
@@ -74,7 +74,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 .feature .shots{display:flex;justify-content:center;gap:20px}
 .checks{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px}
 .checks li{display:flex;gap:12px;align-items:flex-start;font-size:16px;color:var(--ink)}
-.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--green) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%23F2C432' stroke-width='2.6'%3E%3Cpath d='M5.5 10.5l3 3 6-7'/%3E%3C/svg%3E") center/14px no-repeat}
+.checks li::before{content:"";flex:none;width:20px;height:20px;margin-top:2px;border-radius:50%;background:var(--accent) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none' stroke='%230B1324' stroke-width='2.6'%3E%3Cpath d='M5.5 10.5l3 3 6-7'/%3E%3C/svg%3E") center/14px no-repeat}
 
 .band{background:var(--surface2);border-block:1px solid var(--line)}
 
@@ -86,7 +86,7 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 /* steps */
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;counter-reset:s}
 .steps>div{background:var(--surface);border:1px solid var(--line);border-radius:18px;padding:28px;display:flex;flex-direction:column;gap:10px}
-.steps .big{font-family:var(--num);font-weight:800;font-size:64px;line-height:.85;color:var(--gold)}
+.steps .big{font-family:var(--num);font-weight:800;font-size:64px;line-height:.85;color:var(--accent)}
 
 /* video */
 .reel{display:grid;grid-template-columns:.9fr 1.1fr;gap:64px;align-items:center}
@@ -101,14 +101,14 @@ nav{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between
 
 /* roles */
 .roles{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
-.roles>div{border-top:3px solid var(--gold);padding-top:18px;display:flex;flex-direction:column;gap:8px}
+.roles>div{border-top:3px solid var(--accent);padding-top:18px;display:flex;flex-direction:column;gap:8px}
 
 /* download */
-.download{background:var(--green);background-image:radial-gradient(circle at 85% 20%,rgba(242,196,50,.18),transparent 45%);color:var(--cream);text-align:center}
+.download{background:var(--surface);background-image:radial-gradient(circle at 85% 20%,rgba(242,153,74,.16),transparent 45%);color:var(--cream);text-align:center}
 .download .wrap{display:flex;flex-direction:column;align-items:center;gap:22px;padding-block:96px}
 .download img{width:96px;height:96px;border-radius:22px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
-.download p{max-width:560px;color:#D9E6DE;font-size:18px}
-.download .btn.ghost{color:#D9E6DE;border-color:rgba(245,242,235,.35)}
+.download p{max-width:560px;color:var(--muted);font-size:18px}
+.download .btn.ghost{color:var(--muted);border-color:rgba(245,242,235,.35)}
 .download .note{font-size:14px}
 .download a:not(.btn){color:var(--cream)}
 
