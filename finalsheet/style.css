@@ -154,3 +154,6 @@ footer a{color:var(--muted)}footer a:hover{color:var(--ink)}
   .feature .shots .phone.sm:nth-child(2){display:none}
   .doc{padding-inline:16px}
 }
+
+/* official App Store and Google Play badges, same height */
+.store{display:inline-flex;line-height:0}.store img,.download .store img{height:52px;width:auto;display:block;border-radius:0;box-shadow:none}
