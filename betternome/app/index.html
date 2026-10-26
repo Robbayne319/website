@@ -164,7 +164,7 @@ details.midi>summary .cap{flex:1}details.midi>summary .mhint{font-size:13px;colo
 details.midi>summary .chev2{transition:transform .2s;color:var(--muted)}details.midi[open]>summary .chev2{transform:rotate(180deg)}
 details.midi{display:block}details.midi>*+*{margin-top:12px}
 .matchbox{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:12px;background:var(--bg)}
-.chips.smode{grid-template-columns:1fr 1fr}
+.chips.smode{grid-template-columns:1fr 1fr}.chips.smode[hidden]{display:none}
 .mixrow{display:flex;align-items:center;gap:8px;font-size:14px;color:var(--ink)}.mixrow input{accent-color:var(--led);width:18px;height:18px}
 .counts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
 .counts div{display:grid;gap:2px}.counts b{font-family:var(--f-seg);font-weight:400;font-size:22px;color:var(--digit)}
@@ -375,12 +375,48 @@ body{background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--desk)
 .spot{display:grid;gap:10px}
 .spot[hidden],.spot [hidden]{display:none}
 #splink{font-family:var(--f-body);font-size:16px;padding:11px 12px;border-radius:10px;border:0;background:var(--panel);color:var(--ink);box-shadow:inset 0 1px 4px rgba(0,0,0,.2);-webkit-user-select:text;user-select:text;min-width:0}
+#spopenslot{display:contents}
 #splink:focus-visible{outline:3px solid var(--led);outline-offset:2px}
 .spres{display:grid;gap:10px}
+.sphits{display:grid;gap:6px}
+.sphits button{display:flex;justify-content:space-between;gap:10px;text-align:left;font:inherit;font-size:14px;padding:10px 12px;border-radius:10px;border:0;background:var(--panel);color:var(--ink);cursor:pointer;box-shadow:inset 0 0 0 1px var(--line)}
+.sphits button b{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sphits button span{color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:45%}
 .spres .resnum{font-size:36px}
+.sphead{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.spab{display:grid;justify-items:end;gap:2px;text-align:right;min-width:0}.spab[hidden]{display:none}
+.spab b{font-family:var(--f-display);font-size:20px;line-height:1.2;letter-spacing:.02em;color:var(--digit);font-variant-numeric:tabular-nums;white-space:pre}
+.spab span:last-child{font-size:13px;color:var(--muted)}
+.spab.on .cap{color:var(--led)}
 .sprow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
 .spact{display:flex;gap:16px;justify-content:center}
 .loopgrp{display:grid;gap:8px}
+.anahead{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;width:100%;cursor:pointer;font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit}
+.anahead:focus-visible{outline:3px solid var(--led);outline-offset:4px;border-radius:6px}
+.anahead .ic{width:20px;height:20px;color:var(--led)}
+.anahead .chev{margin-left:auto;font-size:14px;line-height:1;display:inline-block;color:var(--muted);transition:transform .15s}
+.anahead[aria-expanded="false"] .chev{transform:rotate(-90deg)}
+.anabody{display:grid;gap:12px}.anabody[hidden]{display:none}
+.srcrow{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.srcrow .file{display:flex;align-items:center;justify-content:center;gap:8px;padding:0 10px;min-height:46px;border-style:solid;font-size:14px}
+.srcrow .file .ic{display:inline;margin:0;width:20px;height:20px}
+.srcrow .recbtn{font-size:14px}
+.trans{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.trans #spopen{grid-column:1/-1;order:-1;min-height:56px;font-size:18px}.trans[hidden]{display:none}
+.trans .btn{padding-left:2px;padding-right:2px;font-variant-numeric:tabular-nums}
+.seekrow{display:grid;grid-template-columns:auto minmax(0,1fr) auto;align-items:center;gap:10px;font-size:13px;color:var(--muted);font-variant-numeric:tabular-nums}.seekrow[hidden]{display:none}
+.seekrow input{width:100%;accent-color:var(--led);min-width:0}
+.actions>.btn:only-child,.actions>.btn:not([hidden]):last-child:nth-child(2):first-child{grid-column:1/-1}
+.lenrow{display:grid;gap:6px}.lenrow[hidden]{display:none}
+.chips.lens{grid-template-columns:repeat(4,1fr)}
+.nudgerow{display:grid;grid-template-columns:1fr 1fr;gap:8px}.nudgerow[hidden],.nd[hidden]{display:none}
+.nd{display:grid;grid-template-columns:auto 40px minmax(0,1fr) 40px;align-items:center;gap:6px}
+.nd .cap{font-size:13px}
+.nd b{text-align:center;font-family:var(--f-display);font-size:14px;font-variant-numeric:tabular-nums;white-space:nowrap}
+.nd .btn{min-height:36px;height:36px;padding:0;font-size:13px}
+.chips.two{grid-template-columns:1fr 1fr}
+.ckrow{display:grid;gap:6px}
+.rdir{grid-column:1/-1;margin-bottom:4px}
 .linkbtn{background:none;border:0;padding:4px;font:inherit;font-size:14px;font-weight:600;color:var(--led);cursor:pointer}
 .shfoot{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px}
 @media (prefers-reduced-motion: reduce){.pad,.dot,.keys button,.btn,.chips button,.sel,.readout{transition:none}}
@@ -440,29 +476,36 @@ body{background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--desk)
 
 
   <section class="analyze" id="analyze">
-    <h2><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h1.5"/><path d="M7 7v10"/><path d="M11 4v16"/><path d="M15 9v6"/><path d="M19 7v10"/><path d="M22 12h-.5"/></svg>Analyze a song</h2>
-    <p>Load a song or voice memo to get its tempo and drum MIDI.</p>
-    <label class="file" id="drop"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Choose audio file<small>MP3, WAV, M4A, AIFF</small>
+    <h2><button type="button" class="anahead" id="anatog" aria-expanded="true" aria-controls="anabody"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12h1.5"/><path d="M7 7v10"/><path d="M11 4v16"/><path d="M15 9v6"/><path d="M19 7v10"/><path d="M22 12h-.5"/></svg>Analyze a song<span class="chev" aria-hidden="true">▾</span></button></h2>
+    <div class="anabody" id="anabody">
+    <div class="srcrow">
+    <label class="file btn" id="drop"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V4"/><path d="m7.5 8.5 4.5-4.5 4.5 4.5"/><path d="M4 15v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Audio file
       <input type="file" id="file" accept="audio/*,.m4a,.mp3,.wav,.aif,.aiff,.flac,.ogg">
     </label>
-    <button class="btn recbtn" id="recbtn" type="button" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21"/></svg><span id="reclab">Record with mic</span></button>
+    <button class="btn recbtn" id="recbtn" type="button" aria-pressed="false"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0"/><path d="M12 17.5V21"/></svg><span id="reclab">Record</span></button>
+    </div>
     <div class="spot" id="spot" hidden>
-      <div class="saverow"><input id="splink" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Paste a Spotify song link" aria-label="Spotify song link"><button type="button" class="btn" id="spfind">Get BPM</button></div>
-      <div class="sprow" id="splive" hidden><button type="button" class="btn" id="spnow">Use what's playing</button><button type="button" class="btn" id="spplay">Play / pause</button></div>
-      <div class="loopgrp" id="sploop" hidden>
-        <span class="cap">Loop a section in Spotify</span>
-        <div class="sprow"><button type="button" class="btn" id="spseta">Set A</button><button type="button" class="btn" id="spsetb">Set B</button></div>
-        <div class="mrow"><label class="mixrow"><input type="checkbox" id="splon"> Loop A to B</label><button type="button" class="linkbtn" id="spclr" hidden>Clear</button></div>
-        <p class="edmsg" id="splab"></p>
-        <label class="mixrow"><input type="checkbox" class="songclick" checked> Click with the song</label>
-        <div class="volrow"><label class="cap" for="spnudge">Click timing</label><input type="range" id="spnudge" min="-400" max="400" step="10" value="0"><span class="edmsg" id="spnudgev">0 ms</span></div>
-      </div>
-      <div class="spact"><button type="button" class="linkbtn" id="spconn" hidden>Connect Spotify</button></div>
+      <div class="saverow"><input id="splink" type="search" enterkeyhint="search" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Search a song" aria-label="Search a song"><button type="button" class="btn" id="spfind">Find</button></div>
+      <div class="sphits" id="sphits" role="listbox" aria-label="Songs found" hidden></div>
       <div class="spres" id="spres" hidden>
         <div class="resname" id="spname"></div>
-        <div class="resnum"><span id="spbpm">0</span><small>BPM</small></div>
-        <div class="actions"><button type="button" class="btn" id="spopen">Open in Spotify</button><button type="button" class="btn primary" id="spuse">Use tempo</button></div>
+        <div class="sphead"><div class="resnum"><span id="spbpm">0</span><small>BPM</small></div><div class="spab" id="spab" hidden><span class="cap" id="spabcap">Loop</span><b id="spabt"></b><span id="spabn"></span></div></div>
+        <div class="trans" id="sptrans" hidden><button type="button" class="btn" id="sprew" aria-label="Back to the start">Start</button><button type="button" class="btn" id="spback" aria-label="Back 10 seconds">−10s</button><span id="spopenslot"></span><button type="button" class="btn" id="spfwd" aria-label="Forward 10 seconds">+10s</button></div>
+        <div class="seekrow" id="spseekrow" hidden><span id="spcur">0:00</span><input type="range" id="spseek" min="0" max="1000" step="1" value="0" aria-label="Position in the song"><span id="spdur">0:00</span></div>
+        <div class="actions" id="spacts"><button type="button" class="btn" id="spopen">Open in Spotify</button><button type="button" class="btn primary" id="spuse">Use tempo</button></div>
       </div>
+      <div class="sprow" id="splive" hidden><button type="button" class="btn" id="spnow">Use what's playing</button><button type="button" class="btn" id="spplay">Play / pause</button></div>
+      <div class="loopgrp" id="sploop" hidden>
+        <span class="cap" id="sploopcap">Loop a section in Spotify</span>
+        <div class="sprow"><button type="button" class="btn" id="spseta">Set A</button><button type="button" class="btn" id="spsetb">Set B</button></div>
+        <div class="lenrow" id="splen" hidden><span class="cap">Loop length</span><div class="chips lens" id="splens" role="radiogroup" aria-label="Loop length"><button type="button" role="radio" data-n="1">1 bar</button><button type="button" role="radio" data-n="2">2 bars</button><button type="button" role="radio" data-n="4">4 bars</button><button type="button" role="radio" data-n="8">8 bars</button></div></div>
+        <div class="nudgerow" id="spnud" hidden><div class="nd" id="spnda"><span class="cap">A</span><button type="button" class="btn" data-w="a" data-d="-1" aria-label="Move A one beat earlier">◀</button><b id="spat">–</b><button type="button" class="btn" data-w="a" data-d="1" aria-label="Move A one beat later">▶</button></div><div class="nd" id="spndb"><span class="cap">B</span><button type="button" class="btn" data-w="b" data-d="-1" aria-label="Move B one beat earlier">◀</button><b id="spbt">–</b><button type="button" class="btn" data-w="b" data-d="1" aria-label="Move B one beat later">▶</button></div></div>
+        <div class="mrow"><label class="mixrow"><input type="checkbox" id="splon"> Loop A to B</label><button type="button" class="linkbtn" id="spclr" hidden>Clear</button></div>
+        <p class="edmsg" id="splab"></p>
+        <div class="ckrow"><span class="cap">Metronome click</span><div class="chips two songclick" role="radiogroup" aria-label="Metronome click while the song plays"><button type="button" role="radio" data-v="1">Click on</button><button type="button" role="radio" data-v="0">Song only</button></div></div>
+        <div class="volrow"><label class="cap" for="spnudge">Click timing</label><input type="range" id="spnudge" min="-400" max="400" step="10" value="0"><span class="edmsg" id="spnudgev">0 ms</span></div>
+      </div>
+      <div class="spact"><button type="button" class="btn" id="amconn" hidden>Connect Apple Music</button><button type="button" class="linkbtn" id="spconn" hidden>Connect Spotify</button></div>
       <p class="edmsg" id="spmsg" aria-live="polite"></p>
     </div>
     <div class="status" id="astatus" aria-live="polite"></div>
@@ -485,20 +528,23 @@ body{background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--desk)
       <div class="grp loopgrp">
         <span class="cap">Loop a section</span>
         <div class="sprow"><button type="button" class="btn" id="seta">Set A</button><button type="button" class="btn" id="setb">Set B</button></div>
+        <div class="lenrow" id="flen" hidden><span class="cap">Loop length</span><div class="chips lens" id="flens" role="radiogroup" aria-label="Loop length"><button type="button" role="radio" data-n="1">1 bar</button><button type="button" role="radio" data-n="2">2 bars</button><button type="button" role="radio" data-n="4">4 bars</button><button type="button" role="radio" data-n="8">8 bars</button></div></div>
+        <div class="nudgerow" id="fnud" hidden><div class="nd" id="fnda"><span class="cap">A</span><button type="button" class="btn" data-w="a" data-d="-1" aria-label="Move A one beat earlier">◀</button><b id="fat">–</b><button type="button" class="btn" data-w="a" data-d="1" aria-label="Move A one beat later">▶</button></div><div class="nd" id="fndb"><span class="cap">B</span><button type="button" class="btn" data-w="b" data-d="-1" aria-label="Move B one beat earlier">◀</button><b id="fbt">–</b><button type="button" class="btn" data-w="b" data-d="1" aria-label="Move B one beat later">▶</button></div></div>
         <div class="mrow"><label class="mixrow"><input type="checkbox" id="loopon"> Loop A to B</label><button type="button" class="linkbtn" id="loopclr" hidden>Clear</button></div>
         <p class="edmsg" id="looplab"></p>
-        <label class="mixrow"><input type="checkbox" class="songclick" checked> Click with the song</label>
+        <div class="ckrow"><span class="cap">Metronome click</span><div class="chips two songclick" role="radiogroup" aria-label="Metronome click while the song plays"><button type="button" role="radio" data-v="1">Click on</button><button type="button" role="radio" data-v="0">Song only</button></div></div>
       </div>
       <div class="matchbox">
-        <label class="mixrow"><input type="checkbox" id="match"> Match song to tempo</label>
+        <span class="cap">Song speed</span>
+        <div class="chips two" id="matchsel" role="radiogroup" aria-label="Song speed"><button type="button" role="radio" data-v="0">Original</button><button type="button" role="radio" data-v="1">Follow metronome</button></div>
         <div class="chips smode" id="smode" role="radiogroup" aria-label="How the speed changes">
           <button type="button" role="radio" data-m="stretch">Keep pitch</button><button type="button" role="radio" data-m="tape">Tape speed</button>
         </div>
-        <p class="edmsg" id="matchmsg">Then tap or drag the display. The song follows.</p>
+        <p class="edmsg" id="matchmsg">The song plays as recorded, and the metronome follows the song.</p>
       </div>
       <div class="actions">
         <button class="btn" id="play" type="button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4.5v15l12-7.5z"/></svg><span id="playlab">Play + click</span></button>
-        <button class="btn primary" id="use" type="button"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Use tempo</button>
+        <button class="btn primary" id="use" type="button" hidden><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m5 12.5 4.5 4.5L19 7.5"/></svg>Use tempo</button>
       </div>
       <details class="midi" id="midi">
         <summary><span class="cap"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 4v9M11 4v9M15 4v9"/><path d="M7 13v7M11 13v7M15 13v7"/></svg>Beat to MIDI</span><span class="mhint" id="mhint"></span><svg class="ic chev2" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg></summary>
@@ -521,6 +567,7 @@ body{background:radial-gradient(120% 80% at 50% 0%,color-mix(in srgb,var(--desk)
         </div>
         <p class="edmsg" id="mmsg"></p>
       </details>
+    </div>
     </div>
   </section>
   <div class="foot"><span class="cap">Case</span><div class="shells" role="radiogroup" aria-label="Case color"><button type="button" role="radio" data-s="auto" aria-label="Case color: match phone"><span class="sw-auto"></span></button><button type="button" role="radio" data-s="arctic" aria-label="Case color: arctic white"><span class="sw-arctic"></span></button><button type="button" role="radio" data-s="graphite" aria-label="Case color: graphite"><span class="sw-graphite"></span></button><button type="button" role="radio" data-s="navy" aria-label="Case color: navy"><span class="sw-navy"></span></button>
@@ -695,11 +742,15 @@ let ctx=null, playing=false, next=0, timer=null, beat=0, vol=1, clickBus=null, c
 try{const v=parseFloat(localStorage.getItem('bn-cvol'));if(v>=0&&v<=100)clickVol=v}catch(e){}
 const clickGain=()=>Math.pow(clickVol/80,1.5);
 // iPhone: ask for "playback" audio so the click still sounds with the ring/silent switch on
-let unlockEl=null;
+let unlockEl=null,amMode=false; // amMode: Apple Music is playing songs in the app (set further down)
 function ensureCtx(){
   try{if(!window.ReactNativeWebView&&navigator.audioSession&&navigator.audioSession.type!=='playback')navigator.audioSession.type='playback'}catch(e){}
-  if(!unlockEl){try{unlockEl=new Audio('data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==');unlockEl.loop=true;unlockEl.volume=0.01;unlockEl.setAttribute('playsinline','');}catch(e){}}
-  if(unlockEl&&unlockEl.paused){const p=unlockEl.play();if(p&&p.catch)p.catch(()=>{})}
+  // With Apple Music playing in the app, the click must mix with it: "ambient" mixes (but follows the Silent switch),
+  // and the silent <audio> unlock below would take over the audio and stop the song.
+  const amMix=window.ReactNativeWebView&&amMode;
+  if(amMix){try{if(navigator.audioSession&&navigator.audioSession.type!=='ambient')navigator.audioSession.type='ambient'}catch(e){}}
+  if(!amMix&&!unlockEl){try{unlockEl=new Audio('data:audio/wav;base64,UklGRkQDAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YSADAACAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgA==');unlockEl.loop=true;unlockEl.volume=0.01;unlockEl.setAttribute('playsinline','');}catch(e){}}
+  if(!amMix&&unlockEl&&unlockEl.paused){const p=unlockEl.play();if(p&&p.catch)p.catch(()=>{})}
   if(!ctx){ctx=new (window.AudioContext||window.webkitAudioContext)();
     try{const b=ctx.createBuffer(1,1,22050),s=ctx.createBufferSource();s.buffer=b;s.connect(ctx.destination);s.start(0)}catch(e){}
     clickBus=ctx.createGain();clickBus.gain.value=clickGain();clickBus.connect(ctx.destination)}
@@ -871,7 +922,7 @@ function wavFrom(chunks,sr){
   let o=44;for(const c of chunks)for(let i=0;i<c.length;i++,o+=2)v.setInt16(o,Math.max(-1,Math.min(1,c[i]))*32767,true);
   return new Blob([v],{type:'audio/wav'});
 }
-function recUI(on,t){$('recbtn').classList.toggle('on',on);$('recbtn').setAttribute('aria-pressed',String(on));$('reclab').textContent=on?'Stop · '+fmt(t||0):'Record with mic'}
+function recUI(on,t){$('recbtn').classList.toggle('on',on);$('recbtn').setAttribute('aria-pressed',String(on));$('reclab').textContent=on?'Stop · '+fmt(t||0):'Record'}
 // One recording context, reused across takes. iOS only lets audio start inside the tap itself and can leave a
 // context "interrupted" after the app goes to the background (share sheet, AirDrop), so it is created/resumed
 // synchronously in the click and thrown away if it is not running.
@@ -959,65 +1010,193 @@ const spMsgs={
   'not-a-song':'That link is an album, playlist or artist. Share a single song instead.',
   'signed-out':'Spotify signed you out. Tap Connect Spotify again.',
   'premium':'Play / pause needs Spotify Premium.',
-  'no-device':'Start the song in Spotify first, then try again.'
+  'no-device':'Start the song in Spotify first, then try again.',
+  'no-song':'Pick a song first.',
+  'play-failed':"Apple Music couldn't play that song. Check your subscription and connection.",
+  'not-found':"That song isn't in Apple Music here."
 };
-function spBusySet(b,msg){spBusy=b;['spfind','spnow','spplay','spconn','spseta','spsetb'].forEach(id=>$(id).disabled=b);if(msg!=null)$('spmsg').textContent=msg}
+function spBusySet(b,msg){spBusy=b;['spfind','spnow','spplay','spconn','amconn','spseta','spsetb','spopen','sprew','spback','spfwd'].forEach(id=>$(id).disabled=b);if(msg!=null)$('spmsg').textContent=msg}
+// Apple Music: the loop controls only show once a song is loaded. Spotify: while connected.
+function spLoopVis(){$('sploop').hidden=amMode?!spTrack:$('splive').hidden}
+// One song at a time: an Apple Music song replaces a loaded file, and a loaded file replaces the Apple Music song
+function clearSpSong(){
+  if(!spTrack)return;
+  if(spLoop.on)spLoopStop();else if(playing&&!ps)stopClick();
+  if(spTrack.apple&&amMode)toApp({type:'am-stop'});
+  spTrack=null;spLoop={a:null,b:null,on:false,id:null};$('spres').hidden=true;$('splink').value='';$('spmsg').textContent='';
+  spLoopVis();spLoopUI();
+}
+function clearFileSong(){
+  if(!song)return;
+  stopSong();if(typeof mTimer!=='undefined'&&mTimer)stopDrums();
+  song=null;loop={a:null,b:null,on:false};$('result').hidden=true;setStatus('');
+}
 function spShow(t,now){
   spBusySet(false,'');
+  if(t&&t.apple)clearFileSong();
   if(!t){$('spres').hidden=true;$('spmsg').textContent=now?'Nothing is playing in Spotify right now.':'';return}
-  spTrack=t;$('spres').hidden=false;
+  spTrack=t;$('spres').hidden=false;spLoopVis();$('spuse').hidden=!!t.apple;
+  if(t.apple&&t.bpm)setTempo(t.bpm,'Apple Music');
+  if(spPend&&t.apple){const sv=spPend;spPend=null;if(t.id===sv.id)spRestoreLoop(sv,sv.bpm)}
   $('spname').textContent=t.title+(t.artist?' · '+t.artist:'');
   $('spbpm').textContent=t.bpm?(Math.round(t.bpm*10)/10):'--';$('spuse').disabled=!t.bpm;
-  $('spmsg').textContent=t.bpm?'Tempo from '+t.source+"'s catalog. If it feels twice too fast or slow, use ÷2 or ×2.":'No BPM on file for this song. Play it out loud and tap Record with mic.';
+  $('spopen').textContent=t.apple?'Play':'Open in Spotify';$('spopen').hidden=!t.apple&&amMode;
+  const am=!!t.apple;$('sptrans').hidden=!am;$('spseekrow').hidden=!am;(am?$('spopenslot'):$('spacts')).prepend($('spopen'));$('spopen').classList.toggle('primary',am);
+  if(am){$('spdur').textContent=fmtT(t.durationMs||0)}
+  $('spmsg').textContent=t.bpm?(t.apple?'Metronome set to the song: ':'')+'Tempo from '+t.source+"'s catalog. If it feels twice too fast or slow, use ÷2 or ×2.":'No BPM on file for this song. Play it out loud and tap Record.';
 }
+// Type a song name (results come from Deezer, with BPM), or paste a Spotify link.
+let spQ='',spSearchT=null,spQuiet=false;
+const isLink=v=>/spotify\.(com|link|app\.link)|^spotify:/.test(v);
 function spFind(){
-  const v=$('splink').value.trim();if(!v||spBusy)return;
-  spBusySet(true,'Looking up the song…');toApp({type:'sp-link',url:v});
+  const v=$('splink').value.trim();if(!v||spBusy)return;clearTimeout(spSearchT);
+  if(isLink(v)){$('sphits').hidden=true;spBusySet(true,'Looking up the song…');toApp({type:'sp-link',url:v});return}
+  spQ=v;$('spmsg').textContent='Searching…';toApp({type:amMode?'am-search':'sp-search',q:v});
+}
+function spResults(m){
+  if(m.q!==spQ)return;
+  const box=$('sphits');box.textContent='';
+  $('spmsg').textContent=m.hits.length?'':'No songs found. Try the artist name too.';
+  m.hits.forEach(h=>{
+    const b=document.createElement('button');b.type='button';b.setAttribute('role','option');
+    const t=document.createElement('b');t.textContent=h.title;const a=document.createElement('span');a.textContent=h.artist;
+    b.append(t,a);b.onclick=()=>{box.hidden=true;$('splink').blur();spBusySet(true,'Getting the tempo…');toApp({type:h.amId?'am-pick':'sp-pick',hit:h})};
+    box.appendChild(b);
+  });
+  box.hidden=!m.hits.length;
+}
+// When Spotify is connected, show what's playing without being asked (on connect and whenever you come back to the app).
+function spAutoNow(){if(!spBusy&&!spLoop.on&&!$('splive').hidden){spQuiet=true;toApp({type:'sp-now'})}}
+// Apple Music: when this iPhone build has it and you're signed in with a subscription, search finds Apple Music
+// songs and they play right here, with the A/B loop. Otherwise search falls back to Deezer for the BPM only.
+const amMsgs={denied:'Apple Music access is off. Turn it on in Settings, Betternome, Media & Apple Music.',restricted:'Apple Music is restricted on this iPhone.',nosub:'Playing songs here needs an Apple Music subscription. Search still finds the BPM.'};
+function amState(m){
+  const was=amMode;amMode=!!(m.available&&m.canPlay);
+  $('amconn').hidden=!m.available||amMode||m.status!=='notDetermined';
+  $('sploopcap').textContent=amMode?'Loop a section':'Loop a section in Spotify';
+  $('splink').placeholder=amMode?'Search Apple Music':'Search a song';
+  spLoopVis();
+  if(was&&!amMode&&spLoop.on)spLoopStop();
+  if(was!==amMode){spTrack=null;$('spres').hidden=true;spLoop={a:null,b:null,on:false,id:null}}
+  spBusySet(false,m.available&&!amMode?(amMsgs[m.status]||(m.status==='authorized'?amMsgs.nosub:'')):'');
+  spLoopUI();
 }
 const bnRec=window.__bnNative;
 window.__bnNative=m=>{
+  if(m.type==='am-state'){amState(m);return}
   if(!m.type.startsWith('sp-'))return bnRec(m);
   if(m.type==='sp-state'){
     $('spconn').hidden=!m.login;$('spconn').textContent=m.connected?'Disconnect Spotify':'Connect Spotify';
-    $('splive').hidden=!m.connected;$('sploop').hidden=!m.connected;spBusySet(false,'');
-    if(!m.connected&&spLoop.on)spLoopStop();
-  }else if(m.type==='sp-track')spShow(m.track,m.now);
-  else if(m.type==='sp-playing')spBusySet(false,m.playing?'Playing in Spotify.':'Paused.');
+    const was=!$('splive').hidden;
+    $('splive').hidden=!m.connected;spLoopVis();spBusySet(false,'');
+    if(m.connected&&!was)spAutoNow();
+    if(!m.connected&&spLoop.on&&!amMode)spLoopStop();
+  }else if(m.type==='sp-track'){
+    const q=spQuiet;spQuiet=false;$('sphits').hidden=true;
+    if(q&&!m.track)return;
+    if(q&&spTrack&&m.track.id&&spTrack.id===m.track.id)return;
+    spShow(m.track,m.now);
+  }
+  else if(m.type==='sp-results')spResults(m);
+  else if(m.type==='sp-playing'){spBusySet(false,m.playing?(amMode?'':'Playing in Spotify.'):'Paused.');if(amMode){$('spopen').textContent=m.playing?'Pause':'Play';if(!m.playing){if(playing&&!ps)stopClick()}else if(!spLoop.on)spFollow(m.pos)}}
   else if(m.type==='sp-pos')spPos(m);
-  else if(m.type==='sp-pass')spPass();
-  else if(m.type==='sp-loop-stopped'){spLoop.on=false;if(playing&&!ps)stopClick();spBusySet(false);spLoopUI(spLoopMsgs[m.reason]||spMsgs[m.reason]||'Loop stopped. Spotify stopped answering.')}
+  else if(m.type==='sp-time')spTime(m);
+  else if(m.type==='sp-pass')spPass(m);
+  else if(m.type==='sp-loop-playing'){$('spopen').textContent=m.playing?'Pause':'Play';if(!m.playing&&spLoop.on){if(playing&&!ps)stopClick();spLoopUI('Paused. The loop picks up again when you press Play.')}else spLoopUI()}
+  else if(m.type==='sp-loop-stopped'){spLoop.on=false;if(playing&&!ps)stopClick();spBusySet(false);if(amMode)$('spopen').textContent='Play';spLoopUI(spLoopMsgs[m.reason]||spMsgs[m.reason]||(amMode?'Loop stopped.':'Loop stopped. Spotify stopped answering.'))}
   else if(m.type==='sp-error'){
     let t=spMsgs[m.reason];
     if(!t&&m.redirectUri)t='Spotify login failed ('+m.reason+'). Check that this Redirect URI is in your Spotify app: '+m.redirectUri;
-    spBusySet(false,t||"Couldn't reach Spotify. Check your connection and try again.");
+    if(!t&&amMode&&m.detail)t='Apple Music error: '+m.detail;
+    spBusySet(false,t||(amMode?"Couldn't reach Apple Music. Check your connection and try again.":"Couldn't reach Spotify. Check your connection and try again."));
   }
 };
 // Spotify A/B loop: the app seeks Spotify back to A each pass and tells the page, which restarts the click.
 // Spotify's jump lands a little late and varies, so "Click timing" lets you shift the click by ear.
 let spLoop={a:null,b:null,on:false,id:null},spNudge=0;
 try{spNudge=+localStorage.getItem('bn-spnudge')||0}catch(e){}
+const spBeat=()=>spTrack&&spTrack.bpm?60000/spTrack.bpm:0;
 const spBar=()=>spTrack&&spTrack.bpm?60000/spTrack.bpm*pattern().length:0;
 function spLoopUI(msg){
-  const has=spLoop.a!=null;$('splon').checked=spLoop.on;$('splon').disabled=spLoop.b==null;$('spclr').hidden=!has;
-  $('splab').textContent=msg||(!has?'Play the song in Spotify, tap Set A on beat 1, then Set B where the section ends.'
-    :spLoop.b==null?'A at '+fmt1(spLoop.a/1000)+'. Now tap Set B.'
-    :fmt1(spLoop.a/1000)+' to '+fmt1(spLoop.b/1000)+(spBar()?' · '+(n=>n+(n===1?' bar':' bars'))(Math.round((spLoop.b-spLoop.a)/spBar())):'')+(spTrack&&spTrack.bpm?'':' · no BPM on file, so no click'));
+  const has=spLoop.a!=null,bar=spBar(),beat=spBeat();
+  $('spab').hidden=!has;$('spab').classList.toggle('on',!!spLoop.on);$('spabcap').textContent=spLoop.on?'Looping':'Loop';
+  if(has){$('spabt').textContent='A '+fmt1(spLoop.a/1000)+(spLoop.b!=null?'\nB '+fmt1(spLoop.b/1000):'');$('spabn').textContent=spLoop.b!=null&&spBeat()?barsTxt((spLoop.b-spLoop.a)/spBeat()):spLoop.b==null?'Set B or pick a length':''}
+  $('splen').hidden=!has||!bar;$('spnud').hidden=!has;$('spndb').hidden=spLoop.b==null;
+  if(has){const n=spLoop.b!=null&&bar?(spLoop.b-spLoop.a)/bar:0;
+    document.querySelectorAll('#splens button').forEach(b=>b.setAttribute('aria-checked',String(spLoop.b!=null&&Math.abs(n-b.dataset.n)<1e-3)));
+    $('spat').textContent=fmt1(spLoop.a/1000);$('spbt').textContent=spLoop.b!=null?fmt1(spLoop.b/1000):'–';
+    document.querySelectorAll('#spnud button').forEach(b=>b.setAttribute('aria-label','Move '+b.dataset.w.toUpperCase()+(beat?' one beat ':' a little ')+(b.dataset.d<0?'earlier':'later')))}$('splon').checked=spLoop.on;$('splon').disabled=spLoop.b==null;$('spclr').hidden=!has;
+  $('splab').textContent=msg||(!has?(amMode?'Play the song and tap Set A on beat 1. Then pick a length, or tap Set B where the section ends.':'Play the song in Spotify, tap Set A on beat 1, then Set B where the section ends.')
+    :spLoop.b==null?'A at '+fmt1(spLoop.a/1000)+(spBar()?'. Pick a length or tap Set B.':'. Now tap Set B.')
+    :fmt1(spLoop.a/1000)+' to '+fmt1(spLoop.b/1000)+(spBar()?' · '+barsTxt((spLoop.b-spLoop.a)/spBeat()):'')+(spTrack&&spTrack.bpm?'':' · no BPM on file, so no click'));
   $('spnudge').value=spNudge;$('spnudgev').textContent=(spNudge>0?'+':'')+spNudge+' ms';
 }
 function spLoopStart(){
   spLoop.on=true;spLoopUI();
-  if(spTrack&&spTrack.bpm)setTempo(spTrack.bpm,'Spotify');
-  spBusySet(true,'');toApp({type:'sp-loop',a:Math.round(spLoop.a),b:Math.round(spLoop.b),id:spLoop.id});
+  if(spTrack&&spTrack.bpm)setTempo(spTrack.bpm,amMode?'Apple Music':'Spotify');
+  if(amMode)$('spopen').textContent='Pause';
+  spBusySet(true,'');toApp({type:amMode?'am-loop':'sp-loop',a:Math.round(spLoop.a),b:Math.round(spLoop.b),id:spLoop.id});
 }
-function spLoopStop(msg){spLoop.on=false;toApp({type:'sp-loop-off'});if(playing&&!ps)stopClick();spLoopUI(msg)}
-function spPass(){
+// Loop length in bars from A (needs the BPM)
+function spSetLen(n){
+  const bar=spBar();if(spLoop.a==null||!bar||!spTrack)return;
+  const d=spTrack.durationMs;if(d&&spLoop.a+n*bar>d){spLoopUI('Not enough song left after A for '+n+(n>1?' bars.':' bar.'));return}
+  spLoop.b=spLoop.a+n*bar;
+  if(spLoop.on)spLoopMove();else spLoopStart();
+}
+// ◀ ▶ move A or B one beat (a tenth of a second when there's no BPM)
+function spNudgeLoop(w,d){
+  if(spLoop.a==null)return;const st=spBeat()||100,dur=spTrack&&spTrack.durationMs;
+  if(w==='a'){const a=spLoop.a+d*st;if(a<-1||(spLoop.b!=null&&a>spLoop.b-st+1))return;spLoop.a=Math.max(0,a)}
+  else{if(spLoop.b==null)return;const b=spLoop.b+d*st;if(b<spLoop.a+Math.max(st,1000)-1||(dur&&b>dur))return;spLoop.b=b}
+  if(spLoop.on)spLoopMove();else spLoopUI();
+}
+// Change A or B while it loops, without jumping back to A
+function spLoopMove(){spLoopUI();if(amMode)toApp({type:'am-setloop',a:Math.round(spLoop.a),b:Math.round(spLoop.b)});else spLoopStart()}
+function spLoopStop(msg){spLoop.on=false;toApp({type:amMode?'am-loop-off':'sp-loop-off'});if(playing&&!ps)stopClick();spLoopUI(msg)}
+// m.pos (Apple Music) is where the jump really landed, so the click lines up with it; Spotify doesn't say, so assume A.
+function spPass(m){
   spBusySet(false);
-  if(!spLoop.on||!songClick||!(spTrack&&spTrack.bpm))return;
-  ensureCtx();const P=60/spTrack.bpm,now=ctx.currentTime;let t=now+0.03+spNudge/1000,k=0;
+  if(!spLoop.on)return;
+  spAlign(m&&m.pos,spLoop.a);
+}
+// Start the click in step with the song: pos is where the song is now (ms), origin is a beat 1 (ms).
+function spAlign(pos,origin){
+  if(!songClick||!(spTrack&&spTrack.bpm))return;
+  ensureCtx();const P=60/spTrack.bpm,now=ctx.currentTime,known=pos!=null,rel=known?Math.max(0,(pos-origin)/1000):0;
+  let k=Math.ceil(rel/P),t=now+(k*P-rel)+(known?0:0.03)+spNudge/1000;
   while(t<now+0.02){t+=P;k++}
   startClick(t,k%pattern().length);
+  if(amMode)$('spmsg').textContent="Can't hear the click? Turn Silent mode off. The click follows the ring switch while a song plays.";
 }
-function spClickChanged(){if(spLoop.on&&!songClick&&!ps)stopClick()}
+// Apple Music playing without a loop: click along, with beat 1 at A when you've set it.
+// Start, −10 s, +10 s and the position bar. While a loop runs, Start means back to A.
+const fmtT=ms=>{const t=Math.max(0,Math.round(ms/1000));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
+let spSeeking=false,spTimeT=null;
+function spSeek(o){if(!spTrack||!spTrack.apple)return;ensureCtx();toApp(Object.assign({type:'am-seek'},o))}
+function spTime(m){
+  if(!spTrack||!spTrack.apple)return;const d=m.dur||spTrack.durationMs||0;
+  if(!spSeeking){$('spseek').value=d?Math.round(m.pos/d*1000):0;$('spcur').textContent=fmtT(m.pos)}
+  $('spdur').textContent=fmtT(d);
+  if(spWantAlign){spWantAlign=false;if(m.playing&&!m.seek&&!m.moved){if(spLoop.on)spAlign(m.pos,spLoop.a);else spFollow(m.pos)}}
+  if(m.seek||m.moved){
+    if(m.playing){if(spLoop.on)spAlign(m.pos,spLoop.a);else spFollow(m.pos)}
+    if(m.moved)spLoopUI();
+  }
+}
+function spPoll(){
+  clearTimeout(spTimeT);
+  if(amMode&&spTrack&&spTrack.apple&&!document.hidden&&!$('anabody').hidden)toApp({type:'am-time'});
+  spTimeT=setTimeout(spPoll,500);
+}
+function spFollow(pos){if(pos!=null&&songClick)spAlign(pos,spLoop.a!=null?spLoop.a:0)}
+// Click on / Song only while an Apple Music song plays: stop the click, or ask where the song is and start it in step
+let spWantAlign=false;
+function spClickChanged(){
+  if(ps||!spTrack)return;
+  if(!songClick){if(playing)stopClick();return}
+  if(amMode&&spTrack.apple){ensureCtx();spWantAlign=true;toApp({type:'am-time'})}
+}
 function spPos(m){
   spBusySet(false,'');spShow(m.track);
   if(m.which==='a'){
@@ -1030,31 +1209,42 @@ function spPos(m){
   if(b<=spLoop.a+1000){spLoopUI('B has to be at least a second after A.');return}
   spLoop.b=b;spLoopStart();
 }
-const spLoopMsgs={paused:'Loop stopped because Spotify paused.','track-changed':'Loop stopped because Spotify moved to another song.'};
+const spLoopMsgs={paused:'Loop stopped because the song paused.','track-changed':'Loop stopped because another song started.'};
 if(inApp){
-  $('spot').hidden=false;toApp({type:'sp-hello'});
+  $('spot').hidden=false;toApp({type:'sp-hello'});toApp({type:'am-hello'});
   spLoopUI();
-  $('spseta').onclick=()=>{if(!spBusy){spBusySet(true,'');toApp({type:'sp-mark',which:'a'})}};
-  $('spsetb').onclick=()=>{if(!spBusy&&spLoop.a!=null){spBusySet(true,'');toApp({type:'sp-mark',which:'b'})}};
-  $('splon').addEventListener('change',e=>{if(e.target.checked)spLoopStart();else spLoopStop()});
+  $('spseta').onclick=()=>{if(!spBusy){spBusySet(true,'');toApp({type:amMode?'am-mark':'sp-mark',which:'a'})}};
+  $('spsetb').onclick=()=>{if(!spBusy&&spLoop.a!=null){if(amMode)ensureCtx();spBusySet(true,'');toApp({type:amMode?'am-mark':'sp-mark',which:'b'})}};
+  $('splon').addEventListener('change',e=>{if(amMode)ensureCtx();if(e.target.checked)spLoopStart();else spLoopStop()});
+  document.querySelectorAll('#splens button').forEach(b=>b.addEventListener('click',()=>{if(amMode)ensureCtx();spSetLen(+b.dataset.n)}));
+  document.querySelectorAll('#spnud button').forEach(b=>b.addEventListener('click',()=>spNudgeLoop(b.dataset.w,+b.dataset.d)));
+  $('sprew').onclick=()=>{if(spBusy||!spTrack)return;if(spLoop.on){ensureCtx();spLoopStart()}else spSeek({to:0})};
+  $('spback').onclick=()=>{if(!spBusy)spSeek({by:-10000})};
+  $('spfwd').onclick=()=>{if(!spBusy)spSeek({by:10000})};
+  $('spseek').addEventListener('input',e=>{spSeeking=true;const d=spTrack&&spTrack.durationMs||0;$('spcur').textContent=fmtT(e.target.value/1000*d)});
+  $('spseek').addEventListener('change',e=>{spSeeking=false;const d=spTrack&&spTrack.durationMs||0;if(d)spSeek({to:Math.round(e.target.value/1000*d)})});
+  spPoll();
   $('spclr').onclick=()=>{if(spLoop.on)spLoopStop();spLoop={a:null,b:null,on:false,id:null};spLoopUI()};
   $('spnudge').addEventListener('input',e=>{spNudge=+e.target.value;try{localStorage.setItem('bn-spnudge',String(spNudge))}catch(err){}spLoopUI()});
   document.addEventListener('visibilitychange',()=>{if(document.hidden&&spLoop.on)spLoopStop('Loop stopped when you left Betternome. Keep it open while you practice.')});
   $('spfind').onclick=spFind;
   $('splink').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();spFind()}});
-  $('splink').addEventListener('paste',()=>setTimeout(spFind,0));
+  $('splink').addEventListener('paste',()=>setTimeout(()=>{if(isLink($('splink').value))spFind()},0));
+  $('splink').addEventListener('input',()=>{clearTimeout(spSearchT);const v=$('splink').value.trim();if(v.length>=3&&!isLink(v))spSearchT=setTimeout(spFind,450);else if(!v)$('sphits').hidden=true});
+  document.addEventListener('visibilitychange',()=>{if(!document.hidden)spAutoNow()});
   $('spnow').onclick=()=>{if(!spBusy){spBusySet(true,'Checking Spotify…');toApp({type:'sp-now'})}};
   $('spplay').onclick=()=>{if(!spBusy){spBusySet(true,'');toApp({type:'sp-toggle'})}};
   $('spconn').onclick=()=>{if(spBusy)return;const out=$('spconn').textContent.startsWith('Dis');spBusySet(true,out?'':'Opening Spotify…');toApp({type:out?'sp-logout':'sp-login'})};
-  $('spopen').onclick=()=>{if(spTrack)window.open(spTrack.url,'_blank')};
-  $('spuse').onclick=()=>{if(spTrack&&spTrack.bpm){setTempo(spTrack.bpm,'Spotify');window.scrollTo({top:0,behavior:'smooth'})}};
+  $('spopen').onclick=()=>{if(!spTrack||spBusy)return;if(amMode)ensureCtx();if(spTrack.apple){spBusySet(true);toApp({type:'am-toggle'})}else window.open(spTrack.url,'_blank')};
+  $('amconn').onclick=()=>{if(!spBusy){spBusySet(true,'');toApp({type:'am-connect'})}};
+  $('spuse').onclick=()=>{if(spTrack&&spTrack.bpm){setTempo(spTrack.bpm,spTrack.apple?'Apple Music':'Spotify');$('spmsg').textContent='Metronome set to '+(Math.round(spTrack.bpm*10)/10)+' BPM.'}};
 }
 $('recbtn').onclick=()=>{if(recBusy)return;if(inApp){nrec?nativeStop():nativeStart();return}if(rec)stopRec();else startRec(recContext())};
 // leaving the app (share sheet, AirDrop, lock screen) ends a take and releases the mic
 document.addEventListener('visibilitychange',()=>{if(!document.hidden)return;if(rec)stopRec();if(nrec)nativeStop()});
 async function loadFile(f){
   if(!f)return;
-  stopSong();$('result').hidden=true;setStatus('Reading '+f.name+'…');
+  stopSong();$('result').hidden=true;if(typeof clearSpSong==='function')clearSpSong();setStatus('Reading '+f.name+'…');
   try{
     const ab=await f.arrayBuffer();
     const OC=window.OfflineAudioContext||window.webkitOfflineAudioContext;
@@ -1064,8 +1254,9 @@ async function loadFile(f){
     await new Promise(r=>setTimeout(r,40));
     const r=analyzeBuffer(buf);
     song={buf,name:f.name,...r,pick:r.bpm};loop={a:null,b:null,on:false};
+    {const g=typeof songsOf==='function'&&songsOf()[actSong];if(g&&g.file&&g.file.name===f.name&&g.file.a!=null){loop.a=g.file.a;loop.b=g.file.b!=null?g.file.b:null}}
     song.q=4;song.rollBar=0;setStatus('Listening for drum sounds…');await new Promise(r=>setTimeout(r,30));prepDrums();
-    showResult();setStatus('');
+    showResult();setTempo(song.pick,'song');setStatus('');
   }catch(e){
     setStatus(e&&e.message==='short'?'That clip is too short. Load at least 6 seconds of audio.':"Couldn't read that file. Try an MP3, WAV or M4A.");
   }
@@ -1085,7 +1276,7 @@ function showResult(){
     v=Math.round(v*10)/10;
     const b=document.createElement('button');b.type='button';b.setAttribute('role','radio');
     b.textContent=v.toFixed(1)+(v===song.bpm?' ★':'');b.setAttribute('aria-checked',String(v===song.pick));
-    b.onclick=()=>{song.pick=v;showResult();if(ps)playSong(songTimeNow())};
+    b.onclick=()=>{song.pick=v;showResult();if(!matchOn)setTempo(v,'song');if(ps)playSong(songTimeNow())};
     alts.appendChild(b);
   });
   drawChart();
@@ -1141,14 +1332,21 @@ try{smode=localStorage.getItem('tapsmode')||'stretch'}catch(e){}
 let loop={a:null,b:null,on:false},songClick=true;
 try{songClick=localStorage.getItem('bn-songclick')!=='0'}catch(e){}
 const loopOn=()=>!!(song&&loop.on&&loop.a!=null&&loop.b!=null);
+// 8 beats in 4/4 reads '2 bars'; 7 reads '1 bar 3 beats'
+function barsTxt(beats){const n=pattern().length,k=Math.round(beats),b=Math.floor(k/n),r=k%n,pl=(v,w)=>v+' '+w+(v===1?'':'s');return b&&r?pl(b,'bar')+' '+pl(r,'beat'):b?pl(b,'bar'):pl(r,'beat')}
 const fmt1=t=>Math.floor(t/60)+':'+(t%60).toFixed(1).padStart(4,'0');
 function updLoop(){
-  const has=loop.a!=null;$('loopon').checked=loopOn();$('loopon').disabled=loop.b==null;$('loopclr').hidden=!has;
-  $('looplab').textContent=!has?'Play the song, tap Set A on beat 1, then Set B where the section ends.'
-    :loop.b==null?'A at '+fmt1(loop.a)+'. Now tap Set B.'
-    :fmt1(loop.a)+' to '+fmt1(loop.b)+' · '+(n=>n+(n===1?' bar':' bars'))(Math.round((loop.b-loop.a)/(60/song.pick)/pattern().length));
-  document.querySelectorAll('.songclick').forEach(c=>c.checked=songClick);
+  const has=loop.a!=null;
+  $('flen').hidden=!has;$('fnud').hidden=!has;$('fndb').hidden=loop.b==null;
+  if(has){const B=60/song.pick,bar=B*pattern().length,n=loop.b!=null?(loop.b-loop.a)/bar:0;
+    document.querySelectorAll('#flens button').forEach(b=>b.setAttribute('aria-checked',String(loop.b!=null&&Math.abs(n-b.dataset.n)<1e-3)));
+    $('fat').textContent=fmt1(loop.a);$('fbt').textContent=loop.b!=null?fmt1(loop.b):'–'}$('loopon').checked=loopOn();$('loopon').disabled=loop.b==null;$('loopclr').hidden=!has;
+  $('looplab').textContent=!has?'Play the song and tap Set A on beat 1. Then pick a length, or tap Set B where the section ends.'
+    :loop.b==null?'A at '+fmt1(loop.a)+'. Pick a length or tap Set B.'
+    :fmt1(loop.a)+' to '+fmt1(loop.b)+' · '+barsTxt((loop.b-loop.a)/(60/song.pick));
+  markSongClick();
 }
+function markSongClick(){document.querySelectorAll('.songclick button').forEach(b=>b.setAttribute('aria-checked',String((b.dataset.v==='1')===songClick)))}
 function setLoopA(){
   if(!song)return;if(!ps){$('looplab').textContent='Tap Play + click first, then set A while it plays.';return}
   const B=60/song.pick;let a=song.phase+Math.round((songTimeNow()-song.phase)/B)*B;if(a<0)a+=B;
@@ -1162,6 +1360,21 @@ function setLoopB(){
   loop.b=loop.a+n*bar;loop.on=true;updLoop();playSong(loop.a);
 }
 $('seta').onclick=setLoopA;$('setb').onclick=setLoopB;
+// Loop length in bars from A, so B lands on a bar line without tapping it
+function setLoopLen(n){
+  if(!song||loop.a==null)return;const bar=60/song.pick*pattern().length;
+  if(loop.a+n*bar>song.buf.duration){$('looplab').textContent='Not enough song left after A for '+n+(n>1?' bars.':' bar.');return}
+  loop.b=loop.a+n*bar;loop.on=true;updLoop();if(ps)playSong(loop.a);
+}
+document.querySelectorAll('#flens button').forEach(b=>b.addEventListener('click',()=>setLoopLen(+b.dataset.n)));
+// ◀ ▶ move A or B one beat
+function nudgeLoop(w,d){
+  if(!song||loop.a==null)return;const B=60/song.pick;
+  if(w==='a'){const a=loop.a+d*B;if(a<-1e-6||(loop.b!=null&&a>loop.b-B+1e-6))return;loop.a=Math.max(0,a)}
+  else{if(loop.b==null)return;const b=loop.b+d*B;if(b<loop.a+B-1e-6||b>song.buf.duration)return;loop.b=b}
+  updLoop();if(ps&&loopOn()){const t=songTimeNow();playSong(t>=loop.a&&t<loop.b?t:loop.a)}
+}
+document.querySelectorAll('#fnud button').forEach(b=>b.addEventListener('click',()=>nudgeLoop(b.dataset.w,+b.dataset.d)));
 $('loopon').addEventListener('change',e=>{loop.on=e.target.checked;updLoop();if(ps)playSong(loop.on?loop.a:songTimeNow())});
 $('loopclr').onclick=()=>{const t=songTimeNow();loop={a:null,b:null,on:false};updLoop();if(ps)playSong(t)};
 function setSongClick(on){
@@ -1169,7 +1382,7 @@ function setSongClick(on){
   if(ps&&!ps.pending){if(on)startAligned(ps.T0,ps.from,ps.ratio,targetBpm());else stopClick()}
   if(typeof spClickChanged==='function')spClickChanged();
 }
-document.querySelectorAll('.songclick').forEach(c=>{c.checked=songClick;c.addEventListener('change',()=>setSongClick(c.checked))});
+document.querySelectorAll('.songclick button').forEach(b=>b.addEventListener('click',()=>setSongClick(b.dataset.v==='1')));markSongClick();
 function targetBpm(){return matchOn?Math.max(song.pick*0.5,Math.min(song.pick*2,curBpm())):song.pick}
 function songTimeNow(){
   if(!ps)return 0;const t=ps.from+Math.max(0,ctx.currentTime-ps.T0)*ps.ratio;
@@ -1184,11 +1397,11 @@ function startAligned(T0,from,ratio,target){
 }
 function updMatch(){
   document.querySelectorAll('#smode button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.m===smode)));
-  $('match').checked=matchOn;
+  document.querySelectorAll('#matchsel button').forEach(b=>b.setAttribute('aria-checked',String((b.dataset.v==='1')===matchOn)));$('smode').hidden=!matchOn;
+  if(!matchOn){$('matchmsg').textContent='The song plays as recorded, and the metronome follows the song.';return}
   if(!song)return;
-  if(!matchOn){$('matchmsg').textContent='Then tap or drag the display. The song follows.';return}
   const t=targetBpm(),r=t/song.pick;
-  $('matchmsg').textContent=(Math.abs(r-1)<0.002?'Original speed':Math.round(r*100)+'% speed')+' · '+t.toFixed(1)+' BPM · '+(smode==='tape'?'pitch moves with speed':'pitch stays put')+(curBpm()!==t?' · limited to half to double speed':'');
+  $('matchmsg').textContent='Tap or drag the display and the song follows. '+(Math.abs(r-1)<0.002?'Original speed':Math.round(r*100)+'% speed')+' · '+t.toFixed(1)+' BPM · '+(smode==='tape'?'pitch moves with speed':'pitch stays put')+(curBpm()!==t?' · limited to half to double speed':'');
 }
 function playSong(from){
   from=from||0;ensureCtx();stopSong();if(mTimer)stopDrums();
@@ -1250,11 +1463,11 @@ function retune(){
   }
   clearTimeout(restT);restT=setTimeout(()=>{if(ps)playSong(songTimeNow())},350);
 }
-$('match').addEventListener('change',()=>{matchOn=$('match').checked;if(matchOn&&song&&!ps)setTempo(song.pick,'song');updMatch();if(ps)playSong(songTimeNow())});
+document.querySelectorAll('#matchsel button').forEach(b=>b.addEventListener('click',()=>{matchOn=b.dataset.v==='1';if(matchOn&&song&&!ps)setTempo(song.pick,'song');updMatch();if(ps)playSong(songTimeNow())}));
 document.querySelectorAll('#smode button').forEach(b=>b.onclick=()=>{smode=b.dataset.m;try{localStorage.setItem('tapsmode',smode)}catch(e){}updMatch();if(ps)playSong(songTimeNow())});
 updMatch();
 $('play').onclick=()=>{if(!song)return;ps?stopSong():playSong(0)};
-$('use').onclick=()=>{if(song){setTempo(song.pick,'song');window.scrollTo({top:0,behavior:'smooth'})}};
+
 $('file').addEventListener('change',e=>{loadFile(e.target.files[0]);e.target.value=''});
 const drop=$('drop');
 ['dragenter','dragover'].forEach(ev=>drop.addEventListener(ev,e=>{e.preventDefault();drop.classList.add('drag')}));
@@ -1734,23 +1947,35 @@ function showBpm(v){
     setTempo(Math.min(400,Math.max(20,Math.round((cur+(e.deltaY<0?step:-step))*10)/10)))},{passive:false});
 })();
 
+// ---------- Analyze a song: fold away when you don't need it ----------
+function setAna(open){$('anabody').hidden=!open;$('anatog').setAttribute('aria-expanded',String(open));try{localStorage.setItem('bn-ana',open?'1':'0')}catch(e){}}
+$('anatog').onclick=()=>setAna($('anabody').hidden);
+try{if(localStorage.getItem('bn-ana')==='0')setAna(false)}catch(e){}
+
 // ---------- SUB, TRAIN and FLASH controls ----------
 $('subsel').value=String(sub);
 $('subsel').addEventListener('change',e=>{sub=+e.target.value;try{localStorage.setItem('bn-sub',sub)}catch(err){}});
-const TP={ramp:[['step','Add BPM',1,20,1],['every','Every · bars',1,16,1],['target','Target',30,400,1]],
+const TP={ramp:[['step','Change by',1,20,1],['every','Every · bars',1,16,1],['target','Target',30,400,1]],
   gaps:[['on','Play · bars',1,16,1],['off','Silent · bars',1,16,1]],
   random:[['pct','Drop · %',5,90,5]]};
+function markRdir(){const dn=train.target<curBpm()-0.05;document.querySelectorAll('.rdir button').forEach((b,i)=>b.setAttribute('aria-checked',String((i===1)===dn)))}
 function renderTrain(){
   $('trainsel').value=train.mode;
   const box=$('tparams'),list=TP[train.mode];$('trainbox').hidden=!list;box.textContent='';
   if(!list)return;
+  if(train.mode==='ramp'){
+    const down=train.target<curBpm()-0.05,g=document.createElement('div');g.className='chips two rdir';g.setAttribute('role','radiogroup');g.setAttribute('aria-label','Ramp direction');
+    [['Speed up',false],['Slow down',true]].forEach(([txt,dn])=>{const b=document.createElement('button');b.type='button';b.setAttribute('role','radio');b.textContent=txt;b.setAttribute('aria-checked',String(dn===down));
+      b.onclick=()=>{const c=Math.round(curBpm()),gap=Math.max(train.step,Math.abs(train.target-c)||20);train.target=Math.min(400,Math.max(30,dn?c-gap:c+gap));saveTrain();renderTrain();if(!playing)trainIdle()};g.appendChild(b)});
+    box.appendChild(g);
+  }
   list.forEach(([k,label,mn,mx,st])=>{
     const w=document.createElement('div');w.className='tp';
     const c=document.createElement('span');c.className='cap';c.textContent=label;
     const row=document.createElement('div');row.className='stepper';
     const out=document.createElement('output');out.textContent=train[k];
     const mk=(txt,d,lab)=>{const b=document.createElement('button');b.type='button';b.textContent=txt;b.setAttribute('aria-label',lab+' '+label);
-      let t1=null,t2=null;const go=()=>{train[k]=Math.min(mx,Math.max(mn,train[k]+d));out.textContent=train[k];saveTrain();if(!playing)trainIdle()};
+      let t1=null,t2=null;const go=()=>{train[k]=Math.min(mx,Math.max(mn,train[k]+d));out.textContent=train[k];saveTrain();if(!playing)trainIdle();if(k==='target')markRdir()};
       const stop=()=>{clearTimeout(t1);clearInterval(t2)};
       b.addEventListener('pointerdown',e=>{e.preventDefault();go();stop();t1=setTimeout(()=>{t2=setInterval(go,70)},400)});
       ['pointerup','pointerleave','pointercancel'].forEach(ev=>b.addEventListener(ev,stop));
@@ -1774,8 +1999,10 @@ if(!sets.length)sets=[{name:'My setlist',songs:[]}];
 function saveSets(){try{localStorage.setItem('bn-sets',JSON.stringify({sets,cur:curSet}))}catch(e){}}
 const songsOf=()=>sets[curSet].songs;
 function snapshot(name){const m=MET[meter];return {name,bpm:Math.round(curBpm()*10)/10,meter,meterDef:m?{label:m.label,sub:m.sub||'',pat:m.pat.slice(),snd:m.snd?m.snd.slice():null,custom:!!m.custom}:null,
-  sub,sound,train:Object.assign({},train),flash:flashOn}}
-function songLine(g){const m=g.meterDef?g.meterDef.label:g.meter;return g.bpm.toFixed(g.bpm%1?1:0)+' · '+m+(g.sub>1?' · '+['','','8ths','triplets','16ths'][g.sub]:'')+(g.train&&g.train.mode!=='off'?' · '+g.train.mode:'')}
+  sub,sound,train:Object.assign({},train),flash:flashOn,
+  apple:spTrack&&spTrack.apple?{id:spTrack.id,title:spTrack.title,artist:spTrack.artist||'',durationMs:spTrack.durationMs||0,a:spLoop.a,b:spLoop.b}:null,
+  file:!(spTrack&&spTrack.apple)&&song?{name:song.name,a:loop.a,b:loop.b}:null}}
+function songLine(g){const m=g.meterDef?g.meterDef.label:g.meter;return g.bpm.toFixed(g.bpm%1?1:0)+' · '+m+(g.sub>1?' · '+['','','8ths','triplets','16ths'][g.sub]:'')+(g.train&&g.train.mode!=='off'?' · '+g.train.mode:'')+(g.apple?' · ♪ '+g.apple.title:g.file?' · ♪ '+g.file.name:'')}
 function loadSong(i){
   const g=songsOf()[i];if(!g)return;actSong=i;
   if(!MET[g.meter]&&g.meterDef){customs.push(Object.assign({id:g.meter},g.meterDef));saveCustoms();refreshMeters()}
@@ -1787,6 +2014,27 @@ function loadSong(i){
   setTempo(g.bpm,'song');if(!playing)trainIdle();
   try{localStorage.setItem('bn-sub',sub);localStorage.setItem('tapsound',sound);localStorage.setItem('bn-flash',flashOn?'1':'0')}catch(e){}
   renderSetbar();renderSongs();
+  loadSetSong(g);
+}
+// Bring back the song saved with a setlist entry
+let spPend=null;
+function loadSetSong(g){
+  if(g.apple){
+    clearFileSong();
+    if(!amMode){$('spmsg').textContent='';setStatus('“'+g.apple.title+'” is an Apple Music song. It plays in the Betternome iPhone app.');return}
+    if(spTrack&&spTrack.id===g.apple.id){spRestoreLoop(g.apple,g.bpm);return}
+    spPend={id:g.apple.id,a:g.apple.a,b:g.apple.b,bpm:g.bpm};setAna(true);
+    spBusySet(true,'Loading “'+g.apple.title+'”…');toApp({type:'am-pick',hit:{amId:g.apple.id,title:g.apple.title,artist:g.apple.artist,durationMs:g.apple.durationMs}});
+  }else if(g.file){
+    if(song&&song.name===g.file.name)return;
+    if(typeof clearSpSong==='function')clearSpSong();clearFileSong();setAna(true);
+    setStatus('Load “'+g.file.name+'” again with Audio file to play it with this setlist song.');
+  }
+}
+function spRestoreLoop(sv,bpm){
+  if(spLoop.on)spLoopStop();
+  spLoop={a:sv.a!=null?sv.a:null,b:sv.a!=null&&sv.b!=null?sv.b:null,on:false,id:spTrack.id};
+  if(bpm)setTempo(bpm,'song');spLoopUI();
 }
 function renderSetbar(){
   const L=songsOf(),g=L[actSong];$('setbar').hidden=!g;$('lcdtitle').textContent=g?g.name:'Tempo';
@@ -1823,7 +2071,7 @@ $('setsel').addEventListener('change',e=>{curSet=+e.target.value;actSong=-1;save
 $('setnew').onclick=()=>{sets.push({name:'Setlist '+(sets.length+1),songs:[]});curSet=sets.length-1;actSong=-1;saveSets();renderSongs();renderSetbar();$('setname').focus();$('setname').select()};
 $('setname').addEventListener('input',e=>{sets[curSet].name=e.target.value.trim()||'Untitled';saveSets();const o=$('setsel').options[curSet];if(o)o.textContent=sets[curSet].name+' ('+songsOf().length+')';renderSetbar()});
 $('songsave').onclick=()=>{
-  const nm=$('songname').value.trim()||('Song '+(songsOf().length+1));
+  const nm=$('songname').value.trim()||(spTrack&&spTrack.title)||(song&&song.name.replace(/\.[^.]+$/,''))||('Song '+(songsOf().length+1));
   songsOf().push(snapshot(nm));actSong=songsOf().length-1;saveSets();$('songname').value='';
   $('setmsg').textContent='Saved “'+nm+'” at '+songLine(songsOf()[actSong])+'.';renderSongs();renderSetbar();
 };
