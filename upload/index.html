@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>FR Soccer Upload</title>
+<style>
+  :root {
+    --navy: #0f1f3d; --navy-2: #1a2f57; --gold: #c9a74a; --gold-2: #e3c66f;
+    --ink: #f4f1e8; --muted: #a9b3c7; --ok: #5fc98a; --bad: #ef6b6b;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; background: var(--navy); color: var(--ink);
+    font: 16px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; }
+  main { max-width: 560px; margin: 0 auto; padding: 28px 16px 60px; }
+  h1 { font-size: 26px; margin: 0 0 4px; letter-spacing: .5px; }
+  h1 span { color: var(--gold); }
+  .sub { color: var(--muted); margin: 0 0 24px; font-size: 15px; }
+  .drop { display: block; border: 2px dashed var(--gold); border-radius: 16px; padding: 34px 16px;
+    text-align: center; cursor: pointer; background: var(--navy-2); transition: background .15s; }
+  .drop:hover, .drop.over { background: #22396a; }
+  .drop b { display: block; font-size: 20px; color: var(--gold-2); margin-bottom: 4px; }
+  .drop small { color: var(--muted); }
+  input[type=file] { display: none; }
+  ul { list-style: none; padding: 0; margin: 22px 0 0; display: grid; gap: 10px; }
+  li { display: grid; grid-template-columns: 56px 1fr; gap: 12px; align-items: center;
+    background: var(--navy-2); border-radius: 12px; padding: 10px; }
+  .thumb { width: 56px; height: 56px; border-radius: 8px; object-fit: cover; background: #0a1530; }
+  .name { font-size: 14px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .bar { height: 6px; background: #0a1530; border-radius: 3px; margin-top: 6px; overflow: hidden; }
+  .bar i { display: block; height: 100%; width: 0; background: var(--gold); transition: width .2s; }
+  .status { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .done .bar i { background: var(--ok); }
+  .done .status { color: var(--ok); }
+  .err .status { color: var(--bad); }
+  .note { margin-top: 24px; padding: 14px; border-radius: 12px; background: rgba(201,167,74,.12);
+    color: var(--gold-2); font-size: 14px; display: none; }
+  .locked { text-align: center; padding: 60px 16px; color: var(--muted); }
+</style>
+</head>
+<body>
+<main id="app">
+  <h1>FR Soccer <span>Upload</span></h1>
+  <p class="sub">Photos &amp; highlight videos for Claude to post.</p>
+
+  <label class="drop" id="drop">
+    <b>Tap to pick photos / videos</b>
+    <small>or drag them here · JPG, PNG, MP4, MOV</small>
+    <input id="pick" type="file" accept="image/*,video/*" multiple>
+  </label>
+
+  <ul id="list"></ul>
+  <div class="note" id="note">All set. Go tell Claude: <b>"post my latest upload"</b>.</div>
+</main>
+
+<script>
+(() => {
+  const BASE = "https://mecagvrgswbnrvfuqset.supabase.co/functions/v1/social-mcp/";
+  const KEY_STORE = "frsoccer-upload-key";
+  let key = decodeURIComponent((location.hash || "").slice(1));
+  try {
+    if (key) localStorage.setItem(KEY_STORE, key);
+    else key = localStorage.getItem(KEY_STORE) || "";
+  } catch (e) {}
+
+  if (!key) {
+    document.getElementById("app").innerHTML =
+      '<div class="locked">This page needs its private link.<br>Ask Claude for it.</div>';
+    return;
+  }
+
+  const list = document.getElementById("list");
+  const note = document.getElementById("note");
+  const drop = document.getElementById("drop");
+  const pick = document.getElementById("pick");
+  let active = 0;
+
+  pick.addEventListener("change", () => { [...pick.files].forEach(upload); pick.value = ""; });
+  ["dragenter", "dragover"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.add("over"); }));
+  ["dragleave", "drop"].forEach(t => drop.addEventListener(t, e => { e.preventDefault(); drop.classList.remove("over"); }));
+  drop.addEventListener("drop", e => [...(e.dataTransfer?.files || [])].forEach(upload));
+
+  function row(file) {
+    const li = document.createElement("li");
+    const isVid = file.type.startsWith("video/");
+    const th = document.createElement(isVid ? "video" : "img");
+    th.className = "thumb";
+    th.src = URL.createObjectURL(file);
+    if (isVid) { th.muted = true; th.playsInline = true; }
+    const box = document.createElement("div");
+    const nm = document.createElement("div"); nm.className = "name"; nm.textContent = file.name;
+    const bar = document.createElement("div"); bar.className = "bar"; bar.innerHTML = "<i></i>";
+    const st = document.createElement("div"); st.className = "status"; st.textContent = "Starting…";
+    box.append(nm, bar, st); li.append(th, box); list.prepend(li);
+    return {
+      li, set(p) { bar.firstChild.style.width = p + "%"; },
+      say(t, cls) { st.textContent = t; if (cls) li.classList.add(cls); }
+    };
+  }
+
+  async function upload(file) {
+    const r = row(file);
+    active++; note.style.display = "none";
+    const mb = file.size / 1048576;
+    try {
+      if (mb > 50) r.say(`${mb.toFixed(0)} MB — may be over the 50 MB limit, trying…`);
+      const res = await fetch(BASE + encodeURIComponent(key) + "/upload-url", {
+        method: "POST", headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ filename: file.name })
+      });
+      const j = await res.json();
+      if (!res.ok || !j.upload_url) throw new Error(res.status === 404 ? "Bad link — ask Claude for a fresh one." : (j.error || "Couldn't start upload"));
+
+      await new Promise((ok, fail) => {
+        const x = new XMLHttpRequest();
+        x.open("PUT", j.upload_url);
+        x.setRequestHeader("Content-Type", file.type || "application/octet-stream");
+        x.upload.onprogress = e => { if (e.lengthComputable) { const p = Math.round(e.loaded / e.total * 100); r.set(p); r.say(`Uploading… ${p}%`); } };
+        x.onload = () => (x.status >= 200 && x.status < 300) ? ok() :
+          fail(new Error(x.status === 413 ? "Too big — trim it under 50 MB" : `Upload failed (${x.status})`));
+        x.onerror = () => fail(new Error("Network hiccup — try again"));
+        x.send(file);
+      });
+      r.set(100); r.say("Uploaded ✓", "done");
+    } catch (e) {
+      r.say(e.message, "err");
+    } finally {
+      active--;
+      if (!active && list.querySelector(".done")) note.style.display = "block";
+    }
+  }
+})();
+</script>
+</body>
+</html>
