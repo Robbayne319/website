@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Moxie App Design</title>
 <meta name="description" content="Moxie App Design makes apps, including FinalSheet, the sideline app for soccer team managers and coaches, and Betternome, the metronome you play.">
+<meta name="theme-color" content="#123B3E">
 <link rel="icon" href="favicon.ico" sizes="any">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="apple-touch-icon" href="apple-touch-icon.png">
@@ -14,32 +15,40 @@
 <link rel="stylesheet" href="moxie.css">
 </head>
 <body>
-<header><div class="wrap">
+<section class="hero">
+<header class="wrap bar">
+<a class="brand" href="#top"><span class="mark"><img src="moxie-mark.png" alt="" width="160" height="111"></span><span>MOXIE APP DESIGN</span></a>
 <nav aria-label="Main"><a href="#apps">Apps</a><a href="#contact">Contact</a></nav>
-</div></header>
-<main>
-<section class="wrap hero">
-<img src="moxie-logo.png" alt="Moxie App Design" width="476" height="431">
-<p>Moxie makes it happen.</p>
-</section>
-<section id="apps" class="wrap pad">
-<h2>Apps</h2>
-<div class="apps">
-<article class="app">
-<div class="top"><img src="finalsheet/icon.png" alt="" width="64" height="64"><div><h3>FinalSheet</h3><div class="kind">iPhone · beta</div></div></div>
-<p>The sideline app for soccer team managers and coaches: minutes, subs, goals and cards, a live game for your staff and parents, and the game report and share graphics at full time.</p>
-<div class="links"><a class="btn" href="finalsheet/">See FinalSheet</a><a href="finalsheet/privacy.html">Privacy</a><a href="finalsheet/support.html">Support</a></div>
-</article>
-<article class="app">
-<div class="top"><img src="betternome/icon.png" alt="" width="64" height="64"><div><h3>Betternome</h3><div class="kind">Web · iPhone beta</div></div></div>
-<p>A metronome you play like an instrument: tap or drag the tempo, any time signature with your own accents, and songs analyzed for their BPM, looped and turned into drum MIDI.</p>
-<div class="links"><a class="btn" href="https://betternome.app/">See Betternome</a><a href="https://betternome.app/privacy.html">Privacy</a><a href="https://betternome.app/support.html">Support</a></div>
-</article>
+</header>
+<div id="top" class="wrap intro">
+<h1>Moxie makes it happen.</h1>
+<p>Small, focused apps. Tap one to see what it does.</p>
+<div class="shelf">
+<a class="tile" href="#finalsheet"><img src="finalsheet/icon.png" alt="" width="140" height="140"><span class="name">FinalSheet</span><span class="chip">Beta</span></a>
+<a class="tile" href="#betternome"><img src="betternome/icon.png" alt="" width="140" height="140"><span class="name">Betternome</span><span class="chip">Beta</span></a>
+<div class="tile next"><span class="slot"><svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><span class="name">Next app</span><span class="chip coral">In the works</span></div>
+</div>
 </div>
 </section>
-<section id="contact" class="wrap pad" style="padding-top:0">
-<div class="contact"><div><h2 style="margin-bottom:6px">Contact</h2><p>Questions about an app, or want to work together?</p></div>
-<a class="btn" href="mailto:linesandbars@gmail.com">Contact</a></div>
+<main>
+<section id="apps" class="wrap pad list">
+<h2>Apps</h2>
+<article id="finalsheet" class="app">
+<img src="finalsheet/icon.png" alt="" width="56" height="56">
+<div class="text"><h3>FinalSheet <span>· iPhone · beta</span></h3>
+<p>The sideline app for soccer team managers and coaches: minutes, subs, goals and cards, live for staff and parents, with the game report and share graphics at full time.</p></div>
+<div class="links"><a href="finalsheet/privacy.html">Privacy</a><a href="finalsheet/support.html">Support</a><a class="btn" href="finalsheet/">Open</a></div>
+</article>
+<article id="betternome" class="app">
+<img src="betternome/icon.png" alt="" width="56" height="56">
+<div class="text"><h3>Betternome <span>· Web · iPhone beta</span></h3>
+<p>A metronome you play like an instrument: tap or drag the tempo, any time signature with your own accents, and songs analyzed for BPM, looped and turned into drum MIDI.</p></div>
+<div class="links"><a href="https://betternome.app/privacy.html">Privacy</a><a href="https://betternome.app/support.html">Support</a><a class="btn" href="https://betternome.app/">Open</a></div>
+</article>
+</section>
+<section id="contact" class="wrap contact-wrap">
+<div class="contact"><div><h2>Questions or ideas?</h2><p>Support for any app, or a chance to work together.</p></div>
+<a class="btn" href="mailto:linesandbars@gmail.com">Email Moxie</a></div>
 </section>
 </main>
 <footer><div class="wrap"><span>&copy; 2026 Moxie App Design</span><span>moxieappdesign.com</span></div></footer>
