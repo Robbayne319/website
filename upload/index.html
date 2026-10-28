@@ -105,7 +105,7 @@
     const mb = file.size / 1048576;
     try {
       if (mb > 50) r.say(`${mb.toFixed(0)} MB — may be over the 50 MB limit, trying…`);
-      const res = await fetch(BASE + encodeURIComponent(key) + "/upload-url", {
+      const res = await fetch(BASE + "u/" + encodeURIComponent(key), {
         method: "POST", headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ filename: file.name })
       });
